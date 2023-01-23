@@ -4,6 +4,7 @@ const express = require("express");
 const { json } = require("express");
 const app = express();
 const port = 3000;
+const { body, validationResult } = require("express-validator");
 app.use(express.json());
 
 // Available routes
