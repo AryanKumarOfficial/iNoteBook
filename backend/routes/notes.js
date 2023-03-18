@@ -26,9 +26,9 @@ router.post('/addnote', [
     body('tittle', "title can't be blank").exists(),
     body('description', 'description must be at least 10 character').isLength({ min: 10 }),
     body('description', "description can't be blank").exists(),
-    body('author', 'enter a valid author name').isLength({
-        min: 3
-    })
+    // body('author', 'enter a valid author name').isLength({
+    //     min: 3
+    // })
 
 ], fetchuser, async (req, res) => {
     try {
