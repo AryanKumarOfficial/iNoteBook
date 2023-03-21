@@ -52,4 +52,56 @@ router.post('/addnote', [
     }
 })
 
+
+//Route 3: update an exiting note using :"put" "/api/notes/update" requires login 
+router.put('/updatenote/:id', fetchuser, async (req, res) => {
+    const { tittle, description, author } = req.body;
+    // create a newnote object
+    try {
+
+
+        const newNote = {}
+        if (tittle) { newNote.tittle = tittle }
+        if (description) { newNote.description = description }
+        if (author) { newNote.author = author }
+
+        // find the note to be updated and update it.
+        let note = await Notes.findById(req.params.id)
+        if (!note) { return res.status(404).send("Not found") }
+
+        //verifying user for update
+        if (note.user.toString() !== req.user.id) {
+            return res.status(401).send("Not Allowed")
+        }
+
+        note = await Notes.findOneAndUpdate(req.params.id, { $set: newNote }, { new: true })
+        res.json(note)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Internal save Server error")
+    }
+})
+//Route 4: delete an exiting note using :"delete" "/api/notes/deltenote" requires login 
+router.delete('/deletenote/:id', fetchuser, async (req, res) => {
+    try {
+        // find the note to be deleted and delete it.
+        let note = await Notes.findById(req.params.id)
+        if (!note) { return res.status(404).send("Not found") }
+
+        //verify user and note for deletion 
+        if (note.user.toString() !== req.user.id) {
+            return res.status(401).send("Not Allowed")
+        }
+
+        note = await Notes.findOneAndDelete(req.params.id)
+        res.json({ "Success": "Note have been deleted", note: note })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Internal save Server error")
+    }
+})
+
+
+
 module.exports = router;
