@@ -6,7 +6,7 @@ import NoteItem from './NoteItem'
 export default function Notes() {
 
     const context = useContext(noteContext)
-    const { notes, setnotes } = context
+    const { notes } = context
     return (
         <>
             <AddNote />
