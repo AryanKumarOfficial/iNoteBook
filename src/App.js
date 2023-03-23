@@ -9,12 +9,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Alert from './Components/Alert';
 function App() {
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
+          <Alert message="This is alert" />
           <div className='Container'>
             <Switch>
               <Route exact path="/">
