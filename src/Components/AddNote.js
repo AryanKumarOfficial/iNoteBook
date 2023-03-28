@@ -22,7 +22,6 @@ const AddNote = () => {
                         <div className="mb-3">
                             <label htmlFor="tittle" className="form-label">Title</label>
                             <input type="text" className="form-control" id="tittle" aria-describedby="emailHelp" onChange={onChange} name="tittle" />
-                            <div id="emailHelp" className="form-text">We'll never share your notes with anyone else.</div>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Description</label>
@@ -31,10 +30,6 @@ const AddNote = () => {
                         <div className="mb-3">
                             <label htmlFor="author" className="form-label">Author</label>
                             <input type="text" className="form-control" id="author" onChange={onChange} name="author" />
-                        </div>
-                        <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                         </div>
                         <button type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
                     </form>
