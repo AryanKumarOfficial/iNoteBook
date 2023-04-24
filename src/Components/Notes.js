@@ -47,11 +47,11 @@ const Notes = () => {
                             <form >
                                 <div className="mb-3">
                                     <label htmlFor="etittle" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="etittle" aria-describedby="emailHelp" value={note.etittle} onChange={onChange} name="etittle" />
+                                    <input type="text" className="form-control" id="etittle" aria-describedby="emailHelp" value={note.etittle} onChange={onChange} name="etittle" minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" value={note.edescription} onChange={onChange} name="edescription" />
+                                    <input type="text" className="form-control" id="edescription" value={note.edescription} onChange={onChange} name="edescription" minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="eauthor" className="form-label">Author</label>
@@ -61,7 +61,7 @@ const Notes = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Discard Update</button>
-                            <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
+                            <button disabled={note.etittle.length < 5 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -69,10 +69,12 @@ const Notes = () => {
 
             <div className='row my-3'>
                 <h1 >Your Notes</h1>
+                <div className='container'>
+                    {notes.length === 0 && "No Notes to Display"}</div>
                 {notes.map((note) => {
                     return <NoteItem key={note._id} note={note} updatenote={updatenote} />
                 })}
-            </div>
+            </div >
         </>
     )
 }

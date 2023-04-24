@@ -3,11 +3,12 @@ import noteContext from '../Context/notes/NoteContext'
 
 const AddNote = () => {
     const context = useContext(noteContext)
-    const [note, setNote] = useState({ "tittle": "", "description": "", "author": "" })
+    const [note, setNote] = useState({ "tittle": "", "description": "", "author": "anonymous" })
     const { addNote } = context
     const handleClick = (e) => {
         e.preventDefault()
         addNote(note.tittle, note.description, note.author)
+        setNote({ tittle: "", description: "", author: "" })
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -21,17 +22,17 @@ const AddNote = () => {
                     <form >
                         <div className="mb-3">
                             <label htmlFor="tittle" className="form-label">Title</label>
-                            <input type="text" className="form-control" id="tittle" aria-describedby="emailHelp" onChange={onChange} name="tittle" />
+                            <input type="text" className="form-control" id="tittle" aria-describedby="emailHelp" onChange={onChange} name="tittle" minLength={5} required value={note.tittle} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Description</label>
-                            <input type="text" className="form-control" id="description" onChange={onChange} name="description" />
+                            <input type="text" className="form-control" id="description" onChange={onChange} name="description" minLength={5} required value={note.description} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="author" className="form-label">Author</label>
-                            <input type="text" className="form-control" id="author" onChange={onChange} name="author" />
+                            <input type="text" className="form-control" id="author" onChange={onChange} name="author" value={note.author} />
                         </div>
-                        <button type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
+                        <button disabled={note.tittle.length < 5 || note.description.length < 5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
                     </form>
                 </div>
             </div>
