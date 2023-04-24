@@ -9,7 +9,6 @@ const noteState = (props) => {
     // Get Notes
 
     const getNotes = async () => {
-        console.log("note added");
 
         // API CALL
 
@@ -21,7 +20,6 @@ const noteState = (props) => {
             },
         });
         const json = await response.json();
-        console.log(json);
         setNotes(json)
     }
 
@@ -39,9 +37,8 @@ const noteState = (props) => {
             },
             body: JSON.stringify({ tittle, description, author }),
         });
-        const json = response.json();
-        console.log(json
-        );
+        const json = await response.json();
+        console.log(json);
         const note = {
             "_id": "641af13acd35584c516cfc36",
             "user": "64155f2f311e72da79e1432d",
@@ -75,6 +72,7 @@ const noteState = (props) => {
 
     // update note
     const editNote = async (id, tittle, description, author) => {
+
         console.log("Note Updated with id", id);
 
         // API CALL
@@ -87,19 +85,25 @@ const noteState = (props) => {
             },
             body: JSON.stringify({ tittle, description, author }),
         });
-        const json = response.json();
+        const json = await response.json();
+        console.log(json);
 
 
+        let newNotes = JSON.parse(JSON.stringify(notes))
         // LOGIC TO UPDATE NOTES
-        for (let index = 0; index < notes.length; index++) {
-            const element = notes[index];
+        for (let index = 0; index < newNotes.length; index++) {
+            const element = newNotes[index];
             if (element._id === id) {
-                element.tittle = tittle
-                element.description = description
-                element.author = author
+                newNotes[index].tittle = tittle
+                newNotes[index].description = description
+                newNotes[index].author = author
+                break;
             }
+
         }
+        setNotes(newNotes);
     }
+
 
     return (
         <noteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}>

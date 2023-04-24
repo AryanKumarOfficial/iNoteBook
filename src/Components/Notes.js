@@ -3,7 +3,7 @@ import noteContext from '../Context/notes/NoteContext'
 import AddNote from './AddNote'
 import NoteItem from './NoteItem'
 
-export default function Notes() {
+const Notes = () => {
 
     const context = useContext(noteContext)
     const { notes, getNotes, editNote } = context
@@ -12,17 +12,19 @@ export default function Notes() {
     }
         // eslint-disable-next-line
         , [])
-    const [note, setNote] = useState({ "etittle": "", "edescription": "", "eauthor": "" })
+    const [note, setNote] = useState({ id: "", "etittle": "", "edescription": "", "eauthor": "" })
 
     const updatenote = (currentNote) => {
+        editNote(currentNote.id, currentNote.etittle, currentNote.edescription, currentNote.eauthor)
         ref.current.click()
-        setNote({ etittle: currentNote.tittle, edescription: currentNote.description, eauthor: currentNote.author })
+        setNote({ id: currentNote._id, etittle: currentNote.tittle, edescription: currentNote.description, eauthor: currentNote.author })
     }
     const ref = useRef(null)
+    const refClose = useRef(null)
     const handleClick = (e) => {
-        console.log("updating the note ", note
-        );
-        e.preventDefault()
+        console.log("updating the note ", note);
+        editNote(note.id, note.etittle, note.edescription, note.eauthor)
+        refClose.current.click();
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -58,7 +60,7 @@ export default function Notes() {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Discard Update</button>
+                            <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Discard Update</button>
                             <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                         </div>
                     </div>
@@ -74,3 +76,4 @@ export default function Notes() {
         </>
     )
 }
+export default Notes
