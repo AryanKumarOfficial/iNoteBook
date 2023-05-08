@@ -17,17 +17,18 @@ router.post('/createuser', [
     body('userName', "user name can't be less than 5 character").isLength({ min: 5 }),
     body('userName', 'can only contain alphabets and numbers').isAlphanumeric(),
 ], async (req, res) => {
+    let success = false
     // if there are errors, return bad request and err messages
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     // check weather  user with this email alreafy exists
     try {
 
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(400).json({ error: "a user with this email already exists" })
+            return res.status(400).json({ success, error: "a user with this email already exists" })
         }
         else {
             const salt = await bcrypt.genSalt(10)
@@ -46,7 +47,8 @@ router.post('/createuser', [
         }
         const authToken = jwt.sign(data, jwt_secret)
         console.log(authToken);
-        res.json({ authToken })
+        success = true
+        res.json({ success, authToken })
 
         // res.json(user)
     }
