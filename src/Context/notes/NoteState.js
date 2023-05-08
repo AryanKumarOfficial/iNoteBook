@@ -3,7 +3,7 @@ import noteContext from './NoteContext'
 
 const noteState = (props) => {
     const host = "http://localhost:5000"
-    const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxY2NkZTU4Mzg0ZDkwNzBiNzU1NWY0In0sImlhdCI6MTY3OTYwOTMzNn0.tPUn_pPf59TO2t6aqaeCjs0kxyMIItFhkV4iOm2HV4I"
+    const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ1OGYxMmNkMTMwYzUxZTU0MjllZWJmIn0sImlhdCI6MTY4MzU1MDUwOH0.BdxjenpkS4A1RSMi4V1L7shyyTI0PCB4pnidYjjQbBg"
     const notesInitial = []
     const [notes, setNotes] = useState(notesInitial)
     // Get Notes
