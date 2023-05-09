@@ -3,9 +3,10 @@ import React from 'react'
 import { useHistory } from "react-router-dom";
 
 
-const Login = () => {
+const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
     let history = useHistory()
+    const { showAlert } = props
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -21,9 +22,11 @@ const Login = () => {
             // save the authToken
             localStorage.setItem('token', json.authToken)
             history.push('/')
+            showAlert("Logged in succeessfully", 'success')
+
         }
         else {
-            alert("invalid credentials")
+            showAlert("invalid credentials", 'danger')
         }
     }
     const onChange = (e) => {
@@ -31,7 +34,10 @@ const Login = () => {
     }
     return (
         <>
-            <div className='container'>
+            <div className='container my-3'>
+                <h2 className="text-center pb-4">
+                    Login to continue to iNoteBook!
+                </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-floating mb-3">
                         <input type="email" className="form-control" value={credentials.email} id="email" placeholder="enter your email" name='email' onChange={onChange} />

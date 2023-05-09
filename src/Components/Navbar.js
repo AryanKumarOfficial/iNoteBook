@@ -1,9 +1,18 @@
 import React from 'react'
 import { Link, useLocation } from "react-router-dom";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
-export default function Navbar() {
+export default function Navbar(props) {
     let location = useLocation();
+    let history = useHistory();
+    const handleLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        history.push('/login');
+        props.showAlert('logout successfully', 'success');
+
+    }
 
     return (
         <>
@@ -22,11 +31,16 @@ export default function Navbar() {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about">About</Link>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
+                        {!localStorage.getItem('token') ? <form className="d-flex" role="search">
                             <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
                             <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
 
-                        </form>
+                        </form> : <form className="logged-in d-flex" role="search">
+                            <Link className="btn btn-sm btn-primary logout-btn mx-1 " onClick={handleLogout} role="button">Logout</Link>
+                            <Link className=" mx-1" to='/profile' role="button">< img src="https://scienceoxford.com/wp-content/uploads/2018/03/avatar-male.jpg" className="img-avtar rounded-circle mb-3 img-thumbnail img-responsive"
+                                alt="Avatar" /></Link>
+
+                        </form>}
                     </div>
                 </div>
             </nav>
