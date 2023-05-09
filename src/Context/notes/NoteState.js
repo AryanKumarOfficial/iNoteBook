@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import noteContext from './NoteContext'
 
 const noteState = (props) => {
-    const host = "http://localhost:5000"
+    const host = `https://backend-inotebook-ubuu.onrender.com`
     const authToken = localStorage.getItem('token')
     const notesInitial = []
     const [notes, setNotes] = useState(notesInitial)
 
 
     // get user details
-  
+
 
     // Get Notes
 

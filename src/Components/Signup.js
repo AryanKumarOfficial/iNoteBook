@@ -2,13 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 const Signup = (props) => {
+    const localhost = `https://backend-inotebook-ubuu.onrender.com`
+
     const { showAlert } = props
     const [credentials, setCredentials] = useState({ name: "", userName: "", email: "", password: "", cpassword: "" })
     let history = useHistory()
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, userName, email, password } = credentials
-        const response = await fetch("http://localhost:5000/api/auth/createuser", {
+        const response = await fetch(`${localhost}/api/auth/createuser`, {
             method: "post",
             headers: {
                 'content-type': "application/json"

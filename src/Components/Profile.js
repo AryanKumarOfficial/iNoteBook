@@ -1,9 +1,11 @@
 import React, {  useEffect, useState } from 'react'
 
 const Profile = () => {
+    const localhost = `https://backend-inotebook-ubuu.onrender.com`
+
     const [data, setData] = useState({})
     const fetchData = () => {
-        fetch('http://localhost:5000/api/auth/getuser',
+        fetch(`${localhost}/api/auth/getuser`,
             {
                 method: "POST",
                 headers: {
