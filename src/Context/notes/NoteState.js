@@ -1,111 +1,94 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import noteContext from './NoteContext'
 
-const noteState = (props) => {
-    const authToken = localStorage.getItem('token')
-    const host = useMemo(() => process.env.REACT_APP_HOST, [])
-    const notesInitial = []
-    const [notes, setNotes] = useState(notesInitial)
+const NoteState = (props) => {
+    const authToken = localStorage.getItem('token');
+    const host = useMemo(() => process.env.REACT_APP_HOST, []);
+    const [notes, setNotes] = useState([]);
 
-    // get user details
-
+    useEffect(() => {
+        if (authToken) {
+            getNotes();
+        }
+    }, [authToken]);
 
     // Get Notes
-
     const getNotes = async () => {
-
-        // API CALL
-
-        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
-
-            method: "GET",
-
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": authToken
-            },
-        });
-        const json = await response.json();
-        setNotes(json)
-    }
+        try {
+            const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": authToken
+                },
+            });
+            const json = await response.json();
+            setNotes(json);
+        } catch (error) {
+            console.error("Error fetching notes:", error);
+        }
+    };
 
     // Add Note
-    const addNote = async (tittle, description, author) => {
-        console.log("note added");
+    const addNote = async (title, description, author) => {
+        try {
+            const response = await fetch(`${host}/api/notes/addnote`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": authToken
+                },
+                body: JSON.stringify({ title, description, author }),
+            });
+            const note = await response.json();
+            setNotes(prevNotes => [...prevNotes, note]);
+        } catch (error) {
+            console.error("Error adding note:", error);
+        }
+    };
 
-        // API CALL
-
-        const response = await fetch(`${host}/api/notes/addnote`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": authToken
-            },
-            body: JSON.stringify({ tittle, description, author }),
-        });
-        const note = await response.json();
-        setNotes(notes.concat(note))
-    }
     // Delete Note
     const deleteNote = async (id) => {
-        console.log("Note Deleted with id", id);
-
-        // API CALL
-
-        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": authToken
-            },
-        });
-        const json = response.json();
-        console.log(json);
-
-        const newNote = notes.filter((note) => { return note._id !== id })
-        setNotes(newNote)
-    }
-
-    // update note
-    const editNote = async (id, tittle, description, author) => {
-
-        console.log("Note Updated with id", id);
-
-        // API CALL
-
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": authToken
-            },
-            body: JSON.stringify({ tittle, description, author }),
-        });
-        const json = await response.json();
-        console.log(json);
-
-
-        let newNotes = JSON.parse(JSON.stringify(notes))
-        // LOGIC TO UPDATE NOTES
-        for (let index = 0; index < newNotes.length; index++) {
-            const element = newNotes[index];
-            if (element._id === id) {
-                newNotes[index].tittle = tittle
-                newNotes[index].description = description
-                newNotes[index].author = author
-                break;
-            }
-
+        try {
+            await fetch(`${host}/api/notes/deletenote/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": authToken
+                },
+            });
+            setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+        } catch (error) {
+            console.error("Error deleting note:", error);
         }
-        setNotes(newNotes);
-    }
+    };
 
+    // Update Note
+    const editNote = async (id, title, description, author) => {
+        try {
+            const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": authToken
+                },
+                body: JSON.stringify({ title, description, author }),
+            });
+            const updatedNote = await response.json();
+
+            setNotes(prevNotes => prevNotes.map(note =>
+                note._id === id ? { ...note, title, description, author } : note
+            ));
+        } catch (error) {
+            console.error("Error updating note:", error);
+        }
+    };
 
     return (
-        <noteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}>
+        <noteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
             {props.children}
         </noteContext.Provider>
-    )
-}
+    );
+};
 
-export default noteState;
+export default NoteState;

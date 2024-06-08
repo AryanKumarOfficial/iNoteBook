@@ -1,4 +1,5 @@
 import React from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 function Alert(props) {
 
     const captalize = (word) => {

@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import About from './Components/About';
 import NoteState from './Context/notes/NoteState';
+import { Toaster } from 'react-hot-toast';
 import { useState } from 'react'
 import {
   BrowserRouter as Router,
@@ -26,6 +27,11 @@ function App() {
     <>
       <NoteState>
         <Router>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            duration={2000}
+          />
           <Navbar showAlert={showAlert} />
           <Alert alert={alert} />
           <div className='Container'>
