@@ -5,13 +5,14 @@ import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
-    const localhost = `https://backend-inotebook-ubuu.onrender.com`
+    const localhost = process.env.REACT_APP_HOST ||`https://backend-inotebook-ubuu.onrender.com`
     let history = useHistory()
     const { showAlert } = props
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(`${localhost}/api/auth/login`, {
             method: "post",
+            mode:'cors',
             headers: {
                 'content-type': "application/json"
             },

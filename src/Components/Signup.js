@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 const Signup = (props) => {
-    const localhost = `https://backend-inotebook-ubuu.onrender.com`
+    const localhost = process.env.REACT_APP_HOST || `magenta-dock-production.up.railway.app`
 
     const { showAlert } = props
     const [credentials, setCredentials] = useState({ name: "", userName: "", email: "", password: "", cpassword: "" })

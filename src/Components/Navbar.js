@@ -36,7 +36,7 @@ export default function Navbar(props) {
                             <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
 
                         </form> : <form className="logged-in d-flex" role="search">
-                            <Link className="btn btn-sm btn-primary logout-btn mx-1 " onClick={handleLogout} role="button">Logout</Link>
+                            <a className="btn btn-sm btn-primary logout-btn mx-1 " onClick={handleLogout} role="button">Logout</a>
                             <Link className=" mx-1" to='/profile' role="button">< img src="https://scienceoxford.com/wp-content/uploads/2018/03/avatar-male.jpg" className="img-avtar rounded-circle mb-3 img-thumbnail img-responsive"
                                 alt="Avatar" /></Link>
 

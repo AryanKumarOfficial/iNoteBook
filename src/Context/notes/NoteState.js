@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import noteContext from './NoteContext'
 
 const noteState = (props) => {
-    const host = `https://backend-inotebook-ubuu.onrender.com`
+    const host = process.env.REACT_APP_HOST || `https://magenta-dock-production.up.railway.app`
     const authToken = localStorage.getItem('token')
     const notesInitial = []
     const [notes, setNotes] = useState(notesInitial)
-
 
     // get user details
 
@@ -18,7 +17,9 @@ const noteState = (props) => {
         // API CALL
 
         const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+
             method: "GET",
+
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": authToken
