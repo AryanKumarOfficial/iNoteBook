@@ -6,10 +6,10 @@ const AddNote = (props) => {
     const context = useContext(noteContext)
     const [note, setNote] = useState({ "tittle": "", "description": "", "author": "anonymous" })
     const { addNote } = context
-    const handleClick = (e) => {
+    const handleClick = async(e) => {
         e.preventDefault()
         addNote(note.tittle, note.description, note.author)
-        setNote({ tittle: "", description: "", author: "" })
+        setNote({ tittle: "", description: "", author: "anonymous" })
         showAlert('Note Added Successfully', 'success')
 
     }
@@ -35,7 +35,7 @@ const AddNote = (props) => {
                             <label htmlFor="author" className="form-label">Author</label>
                             <input type="text" className="form-control" id="author" onChange={onChange} name="author" value={note.author} />
                         </div>
-                        <button disabled={note.tittle.length < 5 || note.description.length < 5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
+                        <button disabled={note.tittle.length < 0 || note.description.length < 0} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
                     </form>
                 </div>
             </div>

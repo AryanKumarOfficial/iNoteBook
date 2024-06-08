@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import noteContext from './NoteContext'
 
 const noteState = (props) => {
-    const host = process.env.REACT_APP_HOST || `https://magenta-dock-production.up.railway.app`
     const authToken = localStorage.getItem('token')
+    const host = useMemo(() => process.env.REACT_APP_HOST, [])
     const notesInitial = []
     const [notes, setNotes] = useState(notesInitial)
 
