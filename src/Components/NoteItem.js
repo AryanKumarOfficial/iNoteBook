@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 export default function NoteItem(props) {
     const context = useContext(noteContext)
     const { deleteNote } = context
-    const { note, updatenote, showAlert, key } = props
+    const { note, updateNote, key } = props
     useEffect(() => {
         console.log(props);
     }, [])
@@ -16,14 +16,16 @@ export default function NoteItem(props) {
             <div key={key} className="col-md-3" >
                 <div className="card my-3" >
                     <div className="card-body">
-                        <h5 className="card-title">{note.tittle}</h5>
+                        <h5 className="card-title">{note.title}</h5>
                         <p className="card-text">{note.description} </p>
                         <i className=" fa-solid fa-trash" onClick={() => {
                             deleteNote(note._id)
                             toast.success("Note Deleted")
-                        }} ></i>
+                        }}
+                            style={{ cursor: 'pointer' }}
+                        ></i>
                         <i className="mx-3 fa-regular fa-pen-to-square" onClick={() => {
-                            updatenote(note)
+                            updateNote(note)
                             toast.success("Note Updated", {
                                 style: {
                                     borderRadius: '10px',
@@ -31,7 +33,9 @@ export default function NoteItem(props) {
                                     color: '#fff',
                                 },
                             })
-                        }}></i>
+                        }}
+                            style={{ cursor: 'pointer' }}
+                        ></i>
                     </div>
                     {/* <footer className="blockquote-footer ms-5">{note.author} </footer> */}
 
