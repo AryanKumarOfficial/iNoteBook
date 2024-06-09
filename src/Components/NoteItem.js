@@ -18,13 +18,13 @@ export default function NoteItem(props) {
                     <div className="card-body">
                         <h5 className="card-title">{note.title}</h5>
                         <p className="card-text">{note.description} </p>
-                        <i className=" fa-solid fa-trash" onClick={() => {
+                        <i className=" fa-solid text-danger fa-trash" onClick={() => {
                             deleteNote(note._id)
                             toast.success("Note Deleted")
                         }}
                             style={{ cursor: 'pointer' }}
                         ></i>
-                        <i className="mx-3 fa-regular fa-pen-to-square" onClick={() => {
+                        <i className="mx-3 fa-regular fa-pen-to-square text-success" onClick={() => {
                             updateNote(note)
                             toast.success("Note Updated", {
                                 style: {

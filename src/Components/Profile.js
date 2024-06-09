@@ -34,33 +34,33 @@ const Profile = () => {
                     alt="Avatar" />
             </div>
             <div className='container d-flex justify-content-center mt-4'>
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0 px-3">Full Name</p>
+                <div className="col-lg-8">
+                    <div className="card mb-4">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <p className="mb-0 px-3">Full Name</p>
                                 </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0 ps-5 ">{data.name}</p>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0 px-3">Email</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0 ps-5">{data.email}</p>
+                                <div className="col-sm-9">
+                                    <p className="text-muted mb-0 ps-5 ">{data.name}</p>
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0 px-3">User Name</p>
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <p className="mb-0 px-3">Email</p>
                                 </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0 ps-5">{data.userName}</p>
+                                <div className="col-sm-9">
+                                    <p className="text-muted mb-0 ps-5">{data.email}</p>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className="row">
+                                <div className="col-sm-3">
+                                    <p className="mb-0 px-3">User Name</p>
+                                </div>
+                                <div className="col-sm-9">
+                                    <p className="text-muted mb-0 ps-5">{data.userName}</p>
                                 </div>
                             </div>
                         </div>
