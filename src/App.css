@@ -17,3 +17,39 @@
 .logged-in {
     margin: -13px;
 }
+
+.logo {
+    background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00e7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    color: transparent;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    animation: gradient 5s alternate infinite both;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+
+    animation: gradient 2s alternate infinite both;
+
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
